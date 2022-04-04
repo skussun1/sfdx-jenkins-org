@@ -55,10 +55,22 @@ node {
 		}
 		    
 		stage('Apex Test Run') {
-		    rc = command "${toolbelt}/sfdx force:apex:test:run --targetusername UAT"
+// 		    rc = command "${toolbelt}/sfdx force:apex:test:run --targetusername UAT"
+		    rc = command """
+		    ${toolbelt}/sfdx force:apex:test:run --targetusername UAT \
+		    --codecoverage --testlevel RunLocalTests \
+		    --resultformat json --json --verbose \
+		    > logs/apextest.json \
+		    || true
+		    """
+			
 		    if (rc != 0) {
 			error 'Salesforce apex test run failed.'
 		    }
+
+		    // .json ファイルを読み取ります
+		    def json = readJSON(file: "logs/apextest.json")
+		    def SFDX_TEST_RUN_ID = json.result.summary.testRunId
 		}
 
 		// -------------------------------------------------------------------------
