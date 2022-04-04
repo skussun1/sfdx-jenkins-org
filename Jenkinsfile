@@ -60,7 +60,7 @@ node {
 		    ${toolbelt}/sfdx force:apex:test:run --targetusername UAT \
 		    --codecoverage --testlevel RunLocalTests \
 		    --resultformat json --json --verbose \
-		    > logs/apextest.json \
+		    > apextest.json \
 		    || true
 		    """
 			
@@ -69,7 +69,7 @@ node {
 		    }
 
 		    // .json ファイルを読み取ります
-		    def json = readJSON(file: "logs/apextest.json")
+		    def json = readJSON(file: "apextest.json")
 		    def SFDX_TEST_RUN_ID = json.result.summary.testRunId
 		}
 
