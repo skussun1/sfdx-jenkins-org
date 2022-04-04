@@ -71,6 +71,7 @@ node {
 		    // .json ファイルを読み取ります
 		    def json = readJSON(file: "apextest.json")
 		    def SFDX_TEST_RUN_ID = json.result.summary.testRunId
+		    sh "echo ${SFDX_TEST_RUN_ID}"
 		}
 
 		// -------------------------------------------------------------------------
