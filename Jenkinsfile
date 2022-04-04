@@ -53,7 +53,13 @@ node {
 			error 'Salesforce deploy and test run failed.'
 		    }
 		}
-
+		    
+		stage('Apex Test Run') {
+		    rc = command "${toolbelt}/sfdx force:apex:test:run"
+		    if (rc != 0) {
+			error 'Salesforce apex test run failed.'
+		    }
+		}
 
 		// -------------------------------------------------------------------------
 		// Example shows how to run a check-only deploy.
