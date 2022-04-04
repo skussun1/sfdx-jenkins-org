@@ -55,7 +55,7 @@ node {
 		}
 		    
 		stage('Apex Test Run') {
-		    rc = command "${toolbelt}/sfdx force:apex:test:run"
+		    rc = command "${toolbelt}/sfdx force:apex:test:run --targetusername UAT"
 		    if (rc != 0) {
 			error 'Salesforce apex test run failed.'
 		    }
